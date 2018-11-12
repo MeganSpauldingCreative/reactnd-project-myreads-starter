@@ -9,6 +9,6 @@ The MyReads App allows you to track the books you are reading, have read, and wa
 
 ###How to use the app:
 
-*Books are separated into shelves.
-*Switch books from one shelf to another using the drop down menu.
-*Search books by clicking the '+' button and typing in your query.
+* Books are separated into shelves.
+* Switch books from one shelf to another using the drop down menu.
+* Search books by clicking the '+' button and typing in your query.
