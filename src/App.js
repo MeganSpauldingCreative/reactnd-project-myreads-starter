@@ -15,10 +15,6 @@ class BooksApp extends React.Component {
     this.getBooks()
   }
 
-  componentDidUpdate() {
-    this.getBooks()
-  }
-
   getBooks = () => {
     BooksAPI.getAll()
     .then(resp => {
@@ -27,7 +23,10 @@ class BooksApp extends React.Component {
   }
 
   moveShelf = (book, shelf) => {
-    BooksAPI.update(book, shelf)
+    BooksAPI.update(book, shelf).then(() => {
+      this.getBooks()
+    }
+    )
   }
 
   render() {

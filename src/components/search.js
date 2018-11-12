@@ -3,15 +3,22 @@ import { Link } from 'react-router-dom'
 import Book from './book.js'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
+import * as BooksAPI from '../BooksAPI.js'
 
 class Search extends React.Component {
 
   state = {
-    query: ''
+    query: '',
+    results: []
   }
 
+
   updateQuery = (query) => {
-    this.setState({ query: query.trim() })
+      this.setState({ query: query.trim() })
+    if(query) {
+      BooksAPI.search(query)
+      .then((resp) => this.setState({results: resp}))
+    }
   }
 
   clearQuery = () => {
@@ -19,15 +26,15 @@ class Search extends React.Component {
   }
 
   render() {
-    const { books, moveShelf } = this.props
-    const { query } = this.state
+    const { moveShelf } = this.props
+    const { query, results } = this.state
 
     let showingBooks
     if (query) {
       const match = new RegExp(escapeRegExp(query), 'i')
-      showingBooks = books.filter((book) => match.test(book.title || book.authors))
+      showingBooks = results.filter((book) => match.test(book.title || book.authors))
     } else {
-      showingBooks = books
+      showingBooks = []
     }
 
     showingBooks.sort(sortBy('name'))
